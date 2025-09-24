@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ChevronLeft, ChevronRight, Mail, Linkedin, Building, Phone, MapPin } from 'lucide-react';
+import { Menu, X, ChevronLeft, ChevronRight, Mail, Linkedin, Building, Phone, MapPin, MessageCircle } from 'lucide-react';
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -7,19 +7,19 @@ function App() {
   
   const solutions = [
     {
-      title: "Consultoria Tecnológica",
-      description: "Soluções inovadoras em tecnologia da informação para otimizar processos empresariais e aumentar a produtividade.",
-      image: "https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=500"
+      title: "Pesquisa e Desenvolvimento",
+      description: "Nossa equipe de P&D está na vanguarda da tecnologia, explorando novos horizontes em 5G, IoT e comunicação via satélite para criar os produtos do amanhã.",
+      image: "https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=500"
     },
     {
-      title: "Transformação Digital",
-      description: "Acompanhamos sua empresa na jornada de transformação digital, implementando as melhores práticas do mercado.",
-      image: "https://images.pexels.com/photos/3184339/pexels-photo-3184339.jpeg?auto=compress&cs=tinysrgb&w=500"
+      title: "Hardware Customizado",
+      description: "Projetamos e fabricamos hardware de telecomunicações sob medida, desde antenas até dispositivos embarcados, para atender às necessidades específicas de cada cliente.",
+      image: "https://images.pexels.com/photos/3861972/pexels-photo-3861972.jpeg?auto=compress&cs=tinysrgb&w=500"
     },
     {
-      title: "Gestão de Projetos",
-      description: "Metodologias ágeis e eficientes para gerenciar projetos complexos com foco em resultados e qualidade.",
-      image: "https://images.pexels.com/photos/3184464/pexels-photo-3184464.jpeg?auto=compress&cs=tinysrgb&w=500"
+      title: "Software e Firmware",
+      description: "Desenvolvemos software robusto e firmware otimizado que garantem a máxima eficiência, segurança e inteligência para nossos equipamentos de telecomunicação.",
+      image: "https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&w=500"
     }
   ];
 
@@ -127,14 +127,14 @@ function App() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button
                 onClick={() => scrollToSection('solucoes')}
-                className="px-8 py-4 text-lg font-semibold text-white rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+                className="px-8 py-4 text-lg font-semibold text-white rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl hover:brightness-110"
                 style={{ backgroundColor: '#007BFF' }}
               >
                 Conheça Nossas Soluções
               </button>
               <button
                 onClick={() => scrollToSection('contato')}
-                className="px-8 py-4 text-lg font-semibold border-2 border-white text-white rounded-lg transition-all duration-300 hover:bg-white hover:text-gray-900"
+                className="px-8 py-4 text-lg font-semibold border-2 border-white text-white rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:bg-white hover:text-gray-900 hover:shadow-xl"
               >
                 Entre em Contato
               </button>
@@ -146,44 +146,45 @@ function App() {
       {/* Quem Somos Section */}
       <section id="quem-somos" className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-4xl lg:text-5xl font-bold mb-6" style={{ color: '#0B3445' }}>
-                Quem Somos
-              </h2>
-              <div className="space-y-6" style={{ color: '#004D40' }}>
-                <p className="text-lg leading-relaxed">
-                  O Instituto FITA é uma organização dedicada à excelência em tecnologia e inovação. 
-                  Com anos de experiência no mercado, desenvolvemos soluções personalizadas que 
-                  atendem às necessidades específicas de cada cliente.
-                </p>
-                <p className="text-lg leading-relaxed">
-                  Nossa missão é democratizar o acesso à tecnologia de ponta, oferecendo consultoria 
-                  especializada, treinamentos e desenvolvimento de projetos que impulsionam o crescimento 
-                  sustentável das organizações.
-                </p>
-                <p className="text-lg leading-relaxed">
-                  Acreditamos que a transformação digital é essencial para o sucesso empresarial, 
-                  e trabalhamos incansavelmente para tornar essa realidade acessível a todos.
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-4xl lg:text-5xl font-bold mb-12 text-center" style={{ color: '#0B3445' }}>
+              Quem Somos
+            </h2>
+            
+            <div className="space-y-12">
+              {/* Sobre o Instituto FITA */}
+              <div className="bg-white p-8 rounded-2xl shadow-lg">
+                <h3 className="text-2xl font-bold mb-4" style={{ color: '#0B3445' }}>
+                  Sobre o Instituto FITA
+                </h3>
+                <p className="text-lg leading-relaxed" style={{ color: '#004D40' }}>
+                  O Instituto FITA é um centro de excelência em pesquisa e desenvolvimento de tecnologias para telecomunicações. 
+                  Nascido da experiência consolidada da FIOS, empresa pioneira no setor, o FITA foi criado para focar exclusivamente 
+                  na vanguarda da inovação. Nossa paixão é criar soluções que rompem barreiras e impulsionam a conectividade global.
                 </p>
               </div>
-            </div>
-            <div className="grid grid-cols-2 gap-6">
-              <div className="text-center p-6 bg-white rounded-lg shadow-lg">
-                <div className="text-3xl font-bold mb-2" style={{ color: '#007BFF' }}>100+</div>
-                <div className="text-sm font-medium" style={{ color: '#004D40' }}>Projetos Concluídos</div>
-              </div>
-              <div className="text-center p-6 bg-white rounded-lg shadow-lg">
-                <div className="text-3xl font-bold mb-2" style={{ color: '#007BFF' }}>50+</div>
-                <div className="text-sm font-medium" style={{ color: '#004D40' }}>Clientes Atendidos</div>
-              </div>
-              <div className="text-center p-6 bg-white rounded-lg shadow-lg">
-                <div className="text-3xl font-bold mb-2" style={{ color: '#007BFF' }}>15+</div>
-                <div className="text-sm font-medium" style={{ color: '#004D40' }}>Anos de Experiência</div>
-              </div>
-              <div className="text-center p-6 bg-white rounded-lg shadow-lg">
-                <div className="text-3xl font-bold mb-2" style={{ color: '#007BFF' }}>24/7</div>
-                <div className="text-sm font-medium" style={{ color: '#004D40' }}>Suporte Técnico</div>
+              
+              {/* Missão e Visão */}
+              <div className="grid md:grid-cols-2 gap-8">
+                <div className="bg-white p-8 rounded-2xl shadow-lg">
+                  <h3 className="text-2xl font-bold mb-4" style={{ color: '#0B3445' }}>
+                    Nossa Missão
+                  </h3>
+                  <p className="text-lg leading-relaxed" style={{ color: '#004D40' }}>
+                    Projetar e desenvolver produtos de telecomunicações de alta performance, confiabilidade e segurança, 
+                    atendendo às demandas de um mundo cada vez mais conectado.
+                  </p>
+                </div>
+                
+                <div className="bg-white p-8 rounded-2xl shadow-lg">
+                  <h3 className="text-2xl font-bold mb-4" style={{ color: '#0B3445' }}>
+                    Nossa Visão
+                  </h3>
+                  <p className="text-lg leading-relaxed" style={{ color: '#004D40' }}>
+                    Ser referência global em inovação no setor de telecomunicações, liderando a transformação digital 
+                    e contribuindo para uma sociedade mais conectada e inteligente.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -234,14 +235,14 @@ function App() {
             {/* Carousel Controls */}
             <button
               onClick={prevSlide}
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white p-3 rounded-full shadow-lg transition-all duration-300"
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white p-3 rounded-full shadow-lg transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl"
               style={{ color: '#0B3445' }}
             >
               <ChevronLeft size={24} />
             </button>
             <button
               onClick={nextSlide}
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white p-3 rounded-full shadow-lg transition-all duration-300"
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white p-3 rounded-full shadow-lg transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl"
               style={{ color: '#0B3445' }}
             >
               <ChevronRight size={24} />
@@ -253,7 +254,7 @@ function App() {
                 <button
                   key={index}
                   onClick={() => setCurrentSlide(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ease-in-out hover:scale-125 ${
                     index === currentSlide 
                       ? 'w-8' 
                       : 'opacity-50 hover:opacity-75'
@@ -278,14 +279,14 @@ function App() {
             </p>
           </div>
           
-          <div className="grid lg:grid-cols-2 gap-12">
+          <div className="max-w-4xl mx-auto">
             {/* Contact Info */}
-            <div className="space-y-8">
-              <h3 className="text-2xl font-bold mb-6" style={{ color: '#0B3445' }}>
+            <div className="space-y-8 mb-12">
+              <h3 className="text-2xl font-bold mb-8 text-center" style={{ color: '#0B3445' }}>
                 Informações de Contato
               </h3>
               
-              <div className="space-y-6">
+              <div className="grid md:grid-cols-2 gap-6">
                 <div className="flex items-start space-x-4">
                   <div className="p-3 rounded-lg" style={{ backgroundColor: '#007BFF' }}>
                     <Mail className="w-6 h-6 text-white" />
@@ -294,7 +295,7 @@ function App() {
                     <h4 className="font-semibold mb-1" style={{ color: '#0B3445' }}>Email</h4>
                     <a 
                       href="mailto:contato@institutofita.com.br"
-                      className="text-lg hover:underline transition-colors duration-200"
+                      className="text-lg hover:underline transition-all duration-300 ease-in-out hover:text-blue-600"
                       style={{ color: '#004D40' }}
                     >
                       contato@institutofita.com.br
@@ -312,7 +313,7 @@ function App() {
                       href="https://linkedin.com/company/instituto-fita"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-lg hover:underline transition-colors duration-200"
+                      className="text-lg hover:underline transition-all duration-300 ease-in-out hover:text-blue-600"
                       style={{ color: '#004D40' }}
                     >
                       Instituto FITA
@@ -358,60 +359,28 @@ function App() {
               </div>
             </div>
             
-            {/* Contact Form */}
-            <div className="bg-white p-8 rounded-2xl shadow-lg">
-              <h3 className="text-2xl font-bold mb-6" style={{ color: '#0B3445' }}>
-                Envie uma Mensagem
-              </h3>
-              <form className="space-y-6">
-                <div>
-                  <label className="block text-sm font-medium mb-2" style={{ color: '#004D40' }}>
-                    Nome Completo
-                  </label>
-                  <input
-                    type="text"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200"
-                    placeholder="Seu nome completo"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2" style={{ color: '#004D40' }}>
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200"
-                    placeholder="seu@email.com"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2" style={{ color: '#004D40' }}>
-                    Assunto
-                  </label>
-                  <input
-                    type="text"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200"
-                    placeholder="Assunto da mensagem"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2" style={{ color: '#004D40' }}>
-                    Mensagem
-                  </label>
-                  <textarea
-                    rows={5}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200"
-                    placeholder="Descreva como podemos ajudá-lo..."
-                  ></textarea>
-                </div>
-                <button
-                  type="submit"
-                  className="w-full py-3 px-6 text-lg font-semibold text-white rounded-lg transition-all duration-300 hover:shadow-lg transform hover:scale-105"
-                  style={{ backgroundColor: '#007BFF' }}
-                >
-                  Enviar Mensagem
-                </button>
-              </form>
+            {/* Contact Buttons */}
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <a
+                href="https://wa.me/551199998888"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center px-8 py-4 text-lg font-semibold text-white rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl hover:brightness-110"
+                style={{ backgroundColor: '#25D366' }}
+              >
+                <MessageCircle className="w-6 h-6 mr-3" />
+                Fale Conosco no WhatsApp
+              </a>
+              <a
+                href="https://linkedin.com/company/instituto-fita"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center px-8 py-4 text-lg font-semibold text-white rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl hover:brightness-110"
+                style={{ backgroundColor: '#0077B5' }}
+              >
+                <Linkedin className="w-6 h-6 mr-3" />
+                Visite Nosso LinkedIn
+              </a>
             </div>
           </div>
         </div>
