@@ -1,115 +1,138 @@
-import React, { useState, useEffect } from 'react';
-import { Menu, X, ChevronLeft, ChevronRight, Mail, Linkedin, Building, Phone, MapPin, MessageCircle } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Menu, X, Mail, Linkedin, Building, Phone, MapPin, MessageCircle } from 'lucide-react';
 
-function App() {
+export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [currentSlide, setCurrentSlide] = useState(0);
   const [scrollY, setScrollY] = useState(0);
-  
+  const [isMounted, setIsMounted] = useState(false);
+  const quemRef = useRef<HTMLDivElement | null>(null);
+  const solucoesRef = useRef<HTMLDivElement | null>(null);
+  const [quemOffset, setQuemOffset] = useState(0);
+  const [solOffset, setSolOffset] = useState(0);
+
   const solutions = [
     {
-      title: "Pesquisa e Desenvolvimento",
-      description: "Nossa equipe de P&D está na vanguarda da tecnologia, explorando novos horizontes em 5G, IoT e comunicação via satélite para criar os produtos do amanhã.",
-      image: "/icon-research.png"
+      title: 'Pesquisa e Desenvolvimento',
+      description:
+        'Nossa equipe de P&D está na vanguarda da tecnologia, explorando novos horizontes em 5G, IoT e comunicação via satélite para criar os produtos do amanhã.',
+      image: '/icon-research.png',
     },
     {
-      title: "Hardware Customizado",
-      description: "Projetamos e fabricamos hardware de telecomunicações sob medida, desde antenas até dispositivos embarcados, para atender às necessidades específicas de cada cliente.",
-      image: "/icon-hardware.png"
+      title: 'Hardware Customizado',
+      description:
+        'Projetamos e fabricamos hardware de telecomunicações sob medida, desde antenas até dispositivos embarcados, para atender às necessidades específicas de cada cliente.',
+      image: '/icon-hardware.png',
     },
     {
-      title: "Software e Firmware",
-      description: "Desenvolvemos software robusto e firmware otimizado que garantem a máxima eficiência, segurança e inteligência para nossos equipamentos de telecomunicação.",
-      image: "https://control.com/uploads/articles/PLCFirmware_1featured.jpg"
-    }
+      title: 'Software e Firmware',
+      description:
+        'Desenvolvemos software robusto e firmware otimizado que garantem a máxima eficiência, segurança e inteligência para nossos equipamentos de telecomunicação.',
+      image: 'https://control.com/uploads/articles/PLCFirmware_1featured.jpg',
+    },
   ];
 
   useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setScrollY(window.scrollY);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // trigger hero text animation on mount
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % solutions.length);
-    }, 4000);
-    return () => clearInterval(timer);
+    const t = setTimeout(() => setIsMounted(true), 80);
+    return () => clearTimeout(t);
   }, []);
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    element?.scrollIntoView({ behavior: 'smooth' });
+  // compute a limited scroll-based offset for the hero content (background stays fixed)
+  const heroScrollOffset = Math.min(scrollY * 0.35, 160); // px, capped
+
+  // compute offsets for other sections so their content 'rises' on scroll
+  useEffect(() => {
+    let rafId = 0;
+
+    const clamp = (v: number, a = 0, b = 1) => Math.max(a, Math.min(b, v));
+
+    const update = () => {
+      if (quemRef.current) {
+        const rect = quemRef.current.getBoundingClientRect();
+        const progress = clamp((window.innerHeight - rect.top) / (window.innerHeight + rect.height));
+        const offset = Math.round(progress * 80); // up to 80px
+        setQuemOffset(offset);
+      }
+      if (solucoesRef.current) {
+        const rect = solucoesRef.current.getBoundingClientRect();
+        const progress = clamp((window.innerHeight - rect.top) / (window.innerHeight + rect.height));
+        const offset = Math.round(progress * 80);
+        setSolOffset(offset);
+      }
+      rafId = requestAnimationFrame(update);
+    };
+
+    rafId = requestAnimationFrame(update);
+    window.addEventListener('resize', update);
+    return () => {
+      window.removeEventListener('resize', update);
+      cancelAnimationFrame(rafId);
+    };
+  }, []);
+
+  const headerOpacity = Math.min(scrollY / 100, 0.95);
+  const isScrolled = scrollY > 50;
+  // when scrolled, navbar becomes white; otherwise use #03112A with dynamic opacity
+  const headerBg = isScrolled ? 'rgba(255,255,255,0.95)' : `rgba(3,17,42,${headerOpacity})`;
+
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    el?.scrollIntoView({ behavior: 'smooth' });
     setIsMenuOpen(false);
   };
 
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % solutions.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + solutions.length) % solutions.length);
-  };
-
-  const headerOpacity = Math.min(scrollY / 100, 0.95);
-  // navbar color set to #000002 (using rgba for dynamic opacity)
-  const headerBg = scrollY > 50
-    ? `rgba(0, 0, 2, ${headerOpacity})`
-    : 'rgba(0, 0, 2, 0.95)';
-  const textColor = 'text-white';
-
   return (
     <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header 
-        className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm shadow-sm transition-all duration-300"
-        style={{ backgroundColor: headerBg }}
-      >
+      <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm shadow-sm transition-all duration-300" style={{ backgroundColor: headerBg }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            {/* Logo */}
             <div className="flex items-center">
-              <img 
-                src="/Fita%20Logo%20(1)%20Fundo%20Branco.png" 
-                alt="Instituto FITA" 
+              <img
+                src={isScrolled ? "/Fita%20Logo%20(1)%20Fundo%20Branco.png" : "/Fita%20Logo%20(1)%20Fundo%20Preto.png"}
+                alt="Instituto FITA"
                 className="h-12 sm:h-14 w-auto object-contain"
               />
             </div>
 
-            {/* Desktop Navigation */}
             <nav className="hidden md:flex space-x-8">
-              {['inicio', 'quem-somos', 'solucoes', 'contato'].map((section) => (
+              {['inicio', 'quem-somos', 'solucoes', 'contato'].map((s) => (
                 <button
-                  key={section}
-                  onClick={() => scrollToSection(section)}
-                  className={`capitalize font-medium transition-all duration-300 ease-in-out hover:scale-105 hover:text-blue-400 relative group ${textColor}`}
+                  key={s}
+                  onClick={() => scrollToSection(s)}
+                  className={`capitalize font-medium transition-all duration-300 ease-in-out hover:scale-105 relative group`}
+                  style={{ color: isScrolled ? '#03112A' : '#FFFFFF' }}
                 >
-                  {section.replace('-', ' ')}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-400 transition-all duration-300 group-hover:w-full"></span>
+                  {s.replace('-', ' ')}
+                  <span
+                    className="absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full"
+                    style={{ backgroundColor: isScrolled ? '#03112A' : '#FFFFFF' }}
+                  />
                 </button>
               ))}
             </nav>
 
-            {/* Mobile menu button */}
-            <button
-              className={`md:hidden p-2 transition-colors duration-300 ${textColor}`}
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
+            <button className="md:hidden p-2 transition-colors duration-300" onClick={() => setIsMenuOpen(!isMenuOpen)} style={{ color: isScrolled ? '#03112A' : '#FFFFFF' }}>
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
 
-          {/* Mobile Navigation */}
           {isMenuOpen && (
             <div className="md:hidden py-4 border-t border-gray-200/20">
               <nav className="flex flex-col space-y-3">
-                {['inicio', 'quem-somos', 'solucoes', 'contato'].map((section) => (
+                {['inicio', 'quem-somos', 'solucoes', 'contato'].map((s) => (
                   <button
-                    key={section}
-                    onClick={() => scrollToSection(section)}
-                    className={`text-left capitalize font-medium py-2 transition-all duration-300 ease-in-out hover:scale-105 hover:text-blue-400 ${textColor}`}
+                    key={s}
+                    onClick={() => scrollToSection(s)}
+                    className="text-left capitalize font-medium py-2 transition-all duration-300 ease-in-out hover:scale-105"
+                    style={{ color: isScrolled ? '#03112A' : '#FFFFFF' }}
                   >
-                    {section.replace('-', ' ')}
+                    {s.replace('-', ' ')}
                   </button>
                 ))}
               </nav>
@@ -118,38 +141,62 @@ function App() {
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section 
-        id="inicio" 
-        className="min-h-screen flex items-center justify-center relative bg-cover bg-center bg-fixed"
-        style={{
-          backgroundImage: "url('/hero-background%20(1).png')"
-        }}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      {/* Hero */}
+      <section id="inicio" className="min-h-screen flex items-center justify-center relative overflow-hidden">
+        {/* Background layer: blurred and dimmed to improve text contrast */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-fixed transform-gpu"
+          style={{
+            backgroundImage:
+              "url('https://img.freepik.com/fotos-premium/conexoes-de-papel-de-parede-de-fundo-de-tecnologia_913287-99.jpg')",
+            filter: 'blur(8px) brightness(0.55)',
+            transform: 'scale(1.04)'
+          }}
+          aria-hidden="true"
+        />
+        {/* Semi-transparent overlay to further reduce brightness */}
+        <div className="absolute inset-0 bg-black/20" aria-hidden="true" />
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="max-w-4xl mx-auto">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
+            <h1
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white"
+              style={{
+                transform: `translateY(${(isMounted ? 0 : 22) - heroScrollOffset}px)`,
+                opacity: isMounted ? 1 : 0,
+                transition: 'transform 700ms cubic-bezier(0.2,0.8,0.2,1), opacity 700ms ease',
+              }}
+            >
               Transformando o Futuro com
               <span className="block" style={{ color: '#ffffff' }}>
                 Tecnologia e Inovação
               </span>
             </h1>
-            <p className="text-xl sm:text-2xl mb-8 leading-relaxed" style={{ color: '#ffffff' }}>
-              O Instituto FITA oferece soluções tecnológicas avançadas para impulsionar 
-              seu negócio no mundo digital
+
+            <p
+              className="text-xl sm:text-2xl mb-8 leading-relaxed"
+              style={{
+                color: '#ffffff',
+                transform: `translateY(${(isMounted ? 0 : 18) - heroScrollOffset}px)`,
+                opacity: isMounted ? 1 : 0,
+                transition: 'transform 700ms cubic-bezier(0.2,0.8,0.2,1) 120ms, opacity 700ms ease 120ms',
+              }}
+            >
+              O Instituto FITA oferece soluções tecnológicas avançadas para impulsionar seu negócio no mundo digital
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button
-                onClick={() => scrollToSection('solucoes')}
-                className="px-8 py-4 text-lg font-semibold text-white rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl hover:brightness-110"
-                style={{ backgroundColor: '#007BFF' }}
-              >
+
+            <div
+              className="flex flex-col sm:flex-row gap-4 justify-center"
+              style={{
+                transform: `translateY(${(isMounted ? 0 : 12) - heroScrollOffset}px)`,
+                opacity: isMounted ? 1 : 0,
+                transition: 'transform 700ms cubic-bezier(0.2,0.8,0.2,1) 220ms, opacity 700ms ease 220ms',
+              }}
+            >
+              <button onClick={() => scrollToSection('solucoes')} className="px-8 py-4 text-lg font-semibold text-white rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl" style={{ backgroundColor: '#28F3A4' }}>
                 Conheça Nossas Soluções
               </button>
-              <button
-                onClick={() => scrollToSection('contato')}
-                className="px-8 py-4 text-lg font-semibold border-2 border-white text-white rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:bg-white hover:text-gray-900 hover:shadow-xl"
-              >
+              <button onClick={() => scrollToSection('contato')} className="px-8 py-4 text-lg font-semibold border-2 border-white text-white rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:bg-white hover:text-gray-900">
                 Entre em Contato
               </button>
             </div>
@@ -157,46 +204,43 @@ function App() {
         </div>
       </section>
 
-      {/* Quem Somos Section */}
+      {/* Quem Somos */}
       <section id="quem-somos" className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-12 text-center" style={{ color: '#004D40' }}>
+          <div className="max-w-4xl mx-auto" ref={quemRef}>
+            <h2
+              className="text-4xl lg:text-5xl font-bold mb-12 text-center"
+              style={{ color: '#004D40', transform: `translateY(${Math.max(-quemOffset, -80)}px)`, transition: 'transform 450ms ease' }}
+            >
               Quem Somos
             </h2>
-            
+
             <div className="space-y-12">
-              {/* Sobre o Instituto FITA */}
-              <div className="bg-white p-8 rounded-2xl shadow-lg">
+              <div className="bg-white p-8 rounded-2xl shadow-lg" style={{ transform: `translateY(${Math.max(-quemOffset * 0.5, -40)}px)`, transition: 'transform 450ms ease' }}>
                 <h3 className="text-2xl font-bold mb-4" style={{ color: '#004D40' }}>
                   Sobre o Instituto FITA
                 </h3>
                 <p className="text-lg leading-relaxed text-gray-700">
-                  O Instituto FITA é um centro de excelência em pesquisa e desenvolvimento de tecnologias para telecomunicações. 
-                  Nascido da experiência consolidada da FIOS, empresa pioneira no setor, o FITA foi criado para focar exclusivamente 
-                  na vanguarda da inovação. Nossa paixão é criar soluções que rompem barreiras e impulsionam a conectividade global.
+                  O Instituto FITA é um centro de excelência em pesquisa e desenvolvimento de tecnologias para telecomunicações. Nascido da experiência consolidada da FIOS, empresa pioneira no setor, o FITA foi criado para focar exclusivamente na vanguarda da inovação. Nossa paixão é criar soluções que rompem barreiras e impulsionam a conectividade global.
                 </p>
               </div>
-              
-              {/* Missão e Visão */}
+
               <div className="grid md:grid-cols-2 gap-8">
-                <div className="bg-white p-8 rounded-2xl shadow-lg">
+                <div className="bg-white p-8 rounded-2xl shadow-lg" style={{ transform: `translateY(${Math.max(-quemOffset * 0.55, -44)}px)`, transition: 'transform 450ms ease' }}>
                   <h3 className="text-2xl font-bold mb-4" style={{ color: '#004D40' }}>
                     Nossa Missão
                   </h3>
                   <p className="text-lg leading-relaxed text-gray-700">
-                    Projetar e desenvolver produtos de telecomunicações de alta performance, confiabilidade e segurança, 
-                    atendendo às demandas de um mundo cada vez mais conectado.
+                    Projetar e desenvolver produtos de telecomunicações de alta performance, confiabilidade e segurança, atendendo às demandas de um mundo cada vez mais conectado.
                   </p>
                 </div>
-                
-                <div className="bg-white p-8 rounded-2xl shadow-lg">
+
+                <div className="bg-white p-8 rounded-2xl shadow-lg" style={{ transform: `translateY(${Math.max(-quemOffset * 0.55, -44)}px)`, transition: 'transform 450ms ease' }}>
                   <h3 className="text-2xl font-bold mb-4" style={{ color: '#004D40' }}>
                     Nossa Visão
                   </h3>
                   <p className="text-lg leading-relaxed text-gray-700">
-                    Ser referência global em inovação no setor de telecomunicações, liderando a transformação digital 
-                    e contribuindo para uma sociedade mais conectada e inteligente.
+                    Ser referência global em inovação no setor de telecomunicações, liderando a transformação digital e contribuindo para uma sociedade mais conectada e inteligente.
                   </p>
                 </div>
               </div>
@@ -205,234 +249,123 @@ function App() {
         </div>
       </section>
 
-      {/* Soluções Section */}
+      {/* Soluções - 3 cards */}
       <section id="solucoes" className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold mb-6" style={{ color: '#004D40' }}>
               Nossas Soluções
             </h2>
-            <p className="text-xl max-w-3xl mx-auto text-gray-600">
-              Oferecemos uma gama completa de serviços tecnológicos para atender todas as suas necessidades digitais
-            </p>
+            <p className="text-xl max-w-3xl mx-auto text-gray-600">Oferecemos uma gama completa de serviços tecnológicos para atender todas as suas necessidades digitais</p>
           </div>
-          
-          {/* Infinite Carousel */}
-          <div className="relative max-w-4xl mx-auto">
-            <div className="overflow-hidden rounded-2xl shadow-2xl">
-              <div 
-                className="flex transition-transform duration-700 ease-in-out"
-                style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-              >
-                {/* Original slides */}
-                {solutions.map((solution, index) => (
-                  <div key={index} className="w-full flex-shrink-0">
-                    <div className="bg-white">
-                      <div className="h-64 sm:h-80 flex items-center justify-center bg-gradient-to-br from-blue-50 to-cyan-50 p-8">
-                        <img
-                          src={solution.image}
-                          alt={solution.title}
-                          className="max-w-full max-h-full object-contain"
-                        />
-                      </div>
-                      <div className="p-8">
-                        <h3 className="text-2xl font-bold mb-4" style={{ color: '#004D40' }}>
-                          {solution.title}
-                        </h3>
-                        <p className="text-lg leading-relaxed text-gray-700">
-                          {solution.description}
-                        </p>
-                      </div>
-                    </div>
+
+          <div className="max-w-5xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" ref={solucoesRef} style={{ transform: `translateY(${Math.max(-solOffset * 0.45, -48)}px)`, transition: 'transform 450ms ease' }}>
+              {solutions.map((solution, index) => (
+                <div key={index} className="bg-white rounded-2xl shadow-lg overflow-hidden">
+                  <div className="h-56 flex items-center justify-center bg-gray-50 p-6">
+                    <img src={solution.image} alt={solution.title} className="max-h-full max-w-full object-contain" />
                   </div>
-                ))}
-                {/* Duplicate first slide for infinite effect */}
-                <div className="w-full flex-shrink-0">
-                  <div className="bg-white">
-                    <div className="h-64 sm:h-80 flex items-center justify-center bg-gradient-to-br from-blue-50 to-cyan-50 p-8">
-                      <img
-                        src={solutions[0].image}
-                        alt={solutions[0].title}
-                        className="max-w-full max-h-full object-contain"
-                      />
-                    </div>
-                    <div className="p-8">
-                      <h3 className="text-2xl font-bold mb-4" style={{ color: '#004D40' }}>
-                        {solutions[0].title}
-                      </h3>
-                      <p className="text-lg leading-relaxed text-gray-700">
-                        {solutions[0].description}
-                      </p>
-                    </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold mb-2" style={{ color: '#004D40' }}>{solution.title}</h3>
+                    <p className="text-gray-700">{solution.description}</p>
                   </div>
                 </div>
-              </div>
-            </div>
-            
-            {/* Carousel Controls */}
-            <button
-              onClick={prevSlide}
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 p-3 rounded-full shadow-lg transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl text-white"
-              style={{ backgroundColor: 'rgba(0, 123, 255, 0.9)' }}
-            >
-              <ChevronLeft size={24} />
-            </button>
-            <button
-              onClick={nextSlide}
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 p-3 rounded-full shadow-lg transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl text-white"
-              style={{ backgroundColor: 'rgba(0, 123, 255, 0.9)' }}
-            >
-              <ChevronRight size={24} />
-            </button>
-            
-            {/* Dots */}
-            <div className="flex justify-center space-x-3 mt-6">
-              {solutions.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentSlide(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ease-in-out hover:scale-125 ${
-                    index === currentSlide 
-                      ? 'w-8' 
-                      : 'opacity-50 hover:opacity-75'
-                  }`}
-                  style={{ backgroundColor: '#007BFF' }}
-                />
               ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Contato Section */}
+      {/* Contato */}
       <section id="contato" className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold mb-6" style={{ color: '#004D40' }}>
               Entre em Contato
             </h2>
-            <p className="text-xl max-w-3xl mx-auto text-gray-600">
-              Pronto para transformar seu negócio? Entre em contato conosco e descubra como podemos ajudar
-            </p>
+            <p className="text-xl max-w-3xl mx-auto text-gray-600">Pronto para transformar seu negócio? Entre em contato conosco e descubra como podemos ajudar</p>
           </div>
-          
+
           <div className="max-w-6xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-12">
-              {/* Contact Info - Left Side */}
               <div>
                 <h3 className="text-2xl font-bold mb-8" style={{ color: '#004D40' }}>
                   Informações de Contato
                 </h3>
-                
+
                 <div className="space-y-6">
                   <div className="flex items-start space-x-4">
-                    <div className="p-3 rounded-lg" style={{ backgroundColor: '#007BFF' }}>
+                    <div className="p-3 rounded-lg" style={{ backgroundColor: '#28F3A4' }}>
                       <Mail className="w-6 h-6 text-white" />
                     </div>
                     <div>
                       <h4 className="font-semibold mb-1" style={{ color: '#004D40' }}>Email</h4>
-                      <a 
-                        href="mailto:contato@institutofita.com.br"
-                        className="text-lg hover:underline transition-all duration-300 ease-in-out hover:text-blue-600 text-gray-700"
-                      >
-                        contato@institutofita.com.br
-                      </a>
+                      <a href="mailto:contato@institutofita.com.br" className="text-lg hover:underline transition-all duration-300 ease-in-out hover:text-blue-600 text-gray-700">contato@institutofita.com.br</a>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-start space-x-4">
-                    <div className="p-3 rounded-lg" style={{ backgroundColor: '#007BFF' }}>
+                    <div className="p-3 rounded-lg" style={{ backgroundColor: '#28F3A4' }}>
                       <Linkedin className="w-6 h-6 text-white" />
                     </div>
                     <div>
                       <h4 className="font-semibold mb-1" style={{ color: '#004D40' }}>LinkedIn</h4>
-                      <a 
-                        href="https://linkedin.com/company/instituto-fita"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-lg hover:underline transition-all duration-300 ease-in-out hover:text-blue-600 text-gray-700"
-                      >
-                        Instituto FITA
-                      </a>
+                      <a href="https://linkedin.com/company/instituto-fita" target="_blank" rel="noopener noreferrer" className="text-lg hover:underline transition-all duration-300 ease-in-out hover:text-blue-600 text-gray-700">Instituto FITA</a>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-start space-x-4">
-                    <div className="p-3 rounded-lg" style={{ backgroundColor: '#007BFF' }}>
+                    <div className="p-3 rounded-lg" style={{ backgroundColor: '#28F3A4' }}>
                       <Building className="w-6 h-6 text-white" />
                     </div>
                     <div>
                       <h4 className="font-semibold mb-1" style={{ color: '#004D40' }}>CNPJ</h4>
-                      <p className="text-lg text-gray-700">
-                        12.345.678/0001-90
-                      </p>
+                      <p className="text-lg text-gray-700">12.345.678/0001-90</p>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-start space-x-4">
-                    <div className="p-3 rounded-lg" style={{ backgroundColor: '#007BFF' }}>
+                    <div className="p-3 rounded-lg" style={{ backgroundColor: '#28F3A4' }}>
                       <Phone className="w-6 h-6 text-white" />
                     </div>
                     <div>
                       <h4 className="font-semibold mb-1" style={{ color: '#004D40' }}>Telefone</h4>
-                      <p className="text-lg text-gray-700">
-                        (92)0000-8888
-                      </p>
+                      <p className="text-lg text-gray-700">(92)0000-8888</p>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-start space-x-4">
-                    <div className="p-3 rounded-lg" style={{ backgroundColor: '#007BFF' }}>
+                    <div className="p-3 rounded-lg" style={{ backgroundColor: '#28F3A4' }}>
                       <MapPin className="w-6 h-6 text-white" />
                     </div>
                     <div>
                       <h4 className="font-semibold mb-1" style={{ color: '#004D40' }}>Endereço</h4>
-                      <p className="text-lg text-gray-700">
-                        Manaus, AM - Brasil
-                      </p>
+                      <p className="text-lg text-gray-700">Manaus, AM - Brasil</p>
                     </div>
                   </div>
                 </div>
               </div>
-              
-              {/* Contact Actions - Right Side */}
+
               <div className="flex flex-col justify-center">
                 <div className="bg-white p-8 rounded-2xl shadow-lg border-2 border-blue-100">
-                  <h3 className="text-2xl font-bold mb-6 text-center" style={{ color: '#004D40' }}>
-                    Fale Conosco
-                  </h3>
-                  <p className="text-center mb-8 text-gray-600">
-                    Escolha a melhor forma de entrar em contato conosco. Estamos prontos para atender você!
-                  </p>
-                  
+                  <h3 className="text-2xl font-bold mb-6 text-center" style={{ color: '#004D40' }}>Fale Conosco</h3>
+                  <p className="text-center mb-8 text-gray-600">Escolha a melhor forma de entrar em contato conosco. Estamos prontos para atender você!</p>
+
                   <div className="space-y-4">
-                    <a
-                      href="https://wa.me/551199998888"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-center w-full px-6 py-4 text-lg font-semibold text-white rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl hover:brightness-110"
-                      style={{ backgroundColor: '#25D366' }}
-                    >
+                    <a href="https://wa.me/551199998888" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-full px-6 py-4 text-lg font-semibold text-white rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl" style={{ backgroundColor: '#25D366' }}>
                       <MessageCircle className="w-6 h-6 mr-3" />
                       WhatsApp
                     </a>
-                    
-                    <a
-                      href="https://linkedin.com/company/instituto-fita"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-center w-full px-6 py-4 text-lg font-semibold text-white rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl hover:brightness-110"
-                      style={{ backgroundColor: '#0077B5' }}
-                    >
+
+                    <a href="https://linkedin.com/company/instituto-fita" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-full px-6 py-4 text-lg font-semibold text-white rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl" style={{ backgroundColor: '#0077B5' }}>
                       <Linkedin className="w-6 h-6 mr-3" />
                       LinkedIn
                     </a>
                   </div>
-                  
+
                   <div className="mt-6 pt-6 border-t border-gray-200">
-                    <p className="text-sm text-center text-gray-600">
-                      Resposta rápida garantida em até 24 horas
-                    </p>
+                    <p className="text-sm text-center text-gray-600">Resposta rápida garantida em até 24 horas</p>
                   </div>
                 </div>
               </div>
@@ -441,18 +374,13 @@ function App() {
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="py-8" style={{ backgroundColor: '#0B3445' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <p className="text-gray-300">
-              © 2024 Instituto FITA. Todos os direitos reservados.
-            </p>
+            <p className="text-gray-300">© 2024 Instituto FITA. Todos os direitos reservados.</p>
           </div>
         </div>
       </footer>
     </div>
   );
 }
-
-export default App;
