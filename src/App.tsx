@@ -109,7 +109,7 @@ function App() {
         id="inicio" 
         className="min-h-screen flex items-center justify-center relative bg-cover bg-center bg-fixed"
         style={{ 
-          backgroundImage: 'linear-gradient(rgba(11, 52, 69, 0.8), rgba(11, 52, 69, 0.8)), url(https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=1920)'
+          backgroundImage: 'linear-gradient(rgba(11, 52, 69, 0.8), rgba(11, 52, 69, 0.8)), url(https://images.pexels.com/photos/1181677/pexels-photo-1181677.jpeg?auto=compress&cs=tinysrgb&w=1920)'
         }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
