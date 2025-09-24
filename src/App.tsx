@@ -52,9 +52,10 @@ function App() {
   };
 
   const headerOpacity = Math.min(scrollY / 100, 0.95);
-  const headerBg = scrollY > 50 
-    ? `rgba(0, 33, 61, ${headerOpacity})` 
-    : 'rgba(0, 33, 61, 0.9)';
+  // navbar color changed to #28F3A4 (using rgba for dynamic opacity)
+  const headerBg = scrollY > 50
+    ? `rgba(40, 243, 164, ${headerOpacity})`
+    : 'rgba(40, 243, 164, 0.95)';
   const textColor = 'text-white';
 
   return (
@@ -130,7 +131,7 @@ function App() {
           <div className="max-w-4xl mx-auto">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
               Transformando o Futuro com
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-400">
+              <span className="block" style={{ color: '#28F3A4' }}>
                 Tecnologia e Inovação
               </span>
             </h1>
