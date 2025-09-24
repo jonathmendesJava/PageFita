@@ -70,7 +70,7 @@ function App() {
             {/* Logo */}
             <div className="flex items-center">
               <img 
-                src="/fita.jpeg" 
+                src="/Fita%20Logo%20(1)%20Fundo%20Branco.png" 
                 alt="Instituto FITA" 
                 className="h-12 sm:h-14 w-auto object-contain"
               />
@@ -119,26 +119,22 @@ function App() {
       </header>
 
       {/* Hero Section */}
-      <section id="inicio" className="min-h-screen flex items-center justify-center relative">
-        {/* background image placed behind content */}
-        <img
-          src="/hero-background%20(1).png"
-          alt="Hero background"
-          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-          style={{ filter: 'brightness(0.95)' }}
-        />
-        {/* subtle overlay to keep text readable without changing their colors */}
-        <div className="absolute inset-0 bg-white/22 pointer-events-none" />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+      <section 
+        id="inicio" 
+        className="min-h-screen flex items-center justify-center relative bg-cover bg-center bg-fixed"
+        style={{
+          backgroundImage: "url('/hero-background%20(1).png')"
+        }}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="max-w-4xl mx-auto">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
               Transformando o Futuro com
-              <span className="block" style={{ color: '#09384B' }}>
+              <span className="block" style={{ color: '#ffffff' }}>
                 Tecnologia e Inovação
               </span>
             </h1>
-            <p className="text-xl sm:text-2xl mb-8 leading-relaxed" style={{ color: '#09384B' }}>
+            <p className="text-xl sm:text-2xl mb-8 leading-relaxed" style={{ color: '#ffffff' }}>
               O Instituto FITA oferece soluções tecnológicas avançadas para impulsionar 
               seu negócio no mundo digital
             </p>
