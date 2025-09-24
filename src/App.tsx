@@ -4,29 +4,36 @@ import { Menu, X, ChevronLeft, ChevronRight, Mail, Linkedin, Building, Phone, Ma
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [scrollY, setScrollY] = useState(0);
   
   const solutions = [
     {
       title: "Pesquisa e Desenvolvimento",
       description: "Nossa equipe de P&D está na vanguarda da tecnologia, explorando novos horizontes em 5G, IoT e comunicação via satélite para criar os produtos do amanhã.",
-      image: "https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=500"
+      image: "/icon-research.png"
     },
     {
       title: "Hardware Customizado",
       description: "Projetamos e fabricamos hardware de telecomunicações sob medida, desde antenas até dispositivos embarcados, para atender às necessidades específicas de cada cliente.",
-      image: "https://images.pexels.com/photos/3861972/pexels-photo-3861972.jpeg?auto=compress&cs=tinysrgb&w=500"
+      image: "/icon-hardware.png"
     },
     {
       title: "Software e Firmware",
       description: "Desenvolvemos software robusto e firmware otimizado que garantem a máxima eficiência, segurança e inteligência para nossos equipamentos de telecomunicação.",
-      image: "https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&w=500"
+      image: "https://control.com/uploads/articles/PLCFirmware_1featured.jpg"
     }
   ];
 
   useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % solutions.length);
-    }, 5000);
+    }, 4000);
     return () => clearInterval(timer);
   }, []);
 
@@ -44,20 +51,28 @@ function App() {
     setCurrentSlide((prev) => (prev - 1 + solutions.length) % solutions.length);
   };
 
+  const headerOpacity = Math.min(scrollY / 100, 0.95);
+  const headerBg = scrollY > 50 
+    ? `rgba(11, 52, 69, ${headerOpacity})` 
+    : 'rgba(255, 255, 255, 0.95)';
+  const textColor = scrollY > 50 ? 'text-white' : 'text-gray-900';
+
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">
+      <header 
+        className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm shadow-sm transition-all duration-300"
+        style={{ backgroundColor: headerBg }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <div className="flex items-center">
-              <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">F</span>
-              </div>
-              <span className="ml-3 text-xl font-bold" style={{ color: '#0B3445' }}>
-                Instituto FITA
-              </span>
+              <img 
+                src="/fita.jpeg" 
+                alt="Instituto FITA" 
+                className="h-10 w-auto object-contain"
+              />
             </div>
 
             {/* Desktop Navigation */}
@@ -66,19 +81,18 @@ function App() {
                 <button
                   key={section}
                   onClick={() => scrollToSection(section)}
-                  className="capitalize font-medium transition-colors duration-200 hover:text-blue-600"
-                  style={{ color: '#004D40' }}
+                  className={`capitalize font-medium transition-all duration-300 ease-in-out hover:scale-105 hover:text-blue-400 relative group ${textColor}`}
                 >
                   {section.replace('-', ' ')}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-400 transition-all duration-300 group-hover:w-full"></span>
                 </button>
               ))}
             </nav>
 
             {/* Mobile menu button */}
             <button
-              className="md:hidden p-2"
+              className={`md:hidden p-2 transition-colors duration-300 ${textColor}`}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              style={{ color: '#0B3445' }}
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -86,14 +100,13 @@ function App() {
 
           {/* Mobile Navigation */}
           {isMenuOpen && (
-            <div className="md:hidden py-4 border-t">
+            <div className="md:hidden py-4 border-t border-gray-200/20">
               <nav className="flex flex-col space-y-3">
                 {['inicio', 'quem-somos', 'solucoes', 'contato'].map((section) => (
                   <button
                     key={section}
                     onClick={() => scrollToSection(section)}
-                    className="text-left capitalize font-medium py-2 transition-colors duration-200 hover:text-blue-600"
-                    style={{ color: '#004D40' }}
+                    className={`text-left capitalize font-medium py-2 transition-all duration-300 ease-in-out hover:scale-105 hover:text-blue-400 ${textColor}`}
                   >
                     {section.replace('-', ' ')}
                   </button>
@@ -203,21 +216,24 @@ function App() {
             </p>
           </div>
           
-          {/* Carousel */}
+          {/* Infinite Carousel */}
           <div className="relative max-w-4xl mx-auto">
             <div className="overflow-hidden rounded-2xl shadow-2xl">
               <div 
-                className="flex transition-transform duration-500 ease-in-out"
+                className="flex transition-transform duration-700 ease-in-out"
                 style={{ transform: `translateX(-${currentSlide * 100}%)` }}
               >
+                {/* Original slides */}
                 {solutions.map((solution, index) => (
                   <div key={index} className="w-full flex-shrink-0">
                     <div className="bg-white">
-                      <img
-                        src={solution.image}
-                        alt={solution.title}
-                        className="w-full h-64 sm:h-80 object-cover"
-                      />
+                      <div className="h-64 sm:h-80 flex items-center justify-center bg-gradient-to-br from-blue-50 to-cyan-50 p-8">
+                        <img
+                          src={solution.image}
+                          alt={solution.title}
+                          className="max-w-full max-h-full object-contain"
+                        />
+                      </div>
                       <div className="p-8">
                         <h3 className="text-2xl font-bold mb-4" style={{ color: '#0B3445' }}>
                           {solution.title}
@@ -229,6 +245,26 @@ function App() {
                     </div>
                   </div>
                 ))}
+                {/* Duplicate first slide for infinite effect */}
+                <div className="w-full flex-shrink-0">
+                  <div className="bg-white">
+                    <div className="h-64 sm:h-80 flex items-center justify-center bg-gradient-to-br from-blue-50 to-cyan-50 p-8">
+                      <img
+                        src={solutions[0].image}
+                        alt={solutions[0].title}
+                        className="max-w-full max-h-full object-contain"
+                      />
+                    </div>
+                    <div className="p-8">
+                      <h3 className="text-2xl font-bold mb-4" style={{ color: '#0B3445' }}>
+                        {solutions[0].title}
+                      </h3>
+                      <p className="text-lg leading-relaxed" style={{ color: '#004D40' }}>
+                        {solutions[0].description}
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             
@@ -279,108 +315,128 @@ function App() {
             </p>
           </div>
           
-          <div className="max-w-4xl mx-auto">
-            {/* Contact Info */}
-            <div className="space-y-8 mb-12">
-              <h3 className="text-2xl font-bold mb-8 text-center" style={{ color: '#0B3445' }}>
-                Informações de Contato
-              </h3>
-              
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="flex items-start space-x-4">
-                  <div className="p-3 rounded-lg" style={{ backgroundColor: '#007BFF' }}>
-                    <Mail className="w-6 h-6 text-white" />
+          <div className="max-w-6xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-12">
+              {/* Contact Info - Left Side */}
+              <div>
+                <h3 className="text-2xl font-bold mb-8" style={{ color: '#0B3445' }}>
+                  Informações de Contato
+                </h3>
+                
+                <div className="space-y-6">
+                  <div className="flex items-start space-x-4">
+                    <div className="p-3 rounded-lg" style={{ backgroundColor: '#007BFF' }}>
+                      <Mail className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-1" style={{ color: '#0B3445' }}>Email</h4>
+                      <a 
+                        href="mailto:contato@institutofita.com.br"
+                        className="text-lg hover:underline transition-all duration-300 ease-in-out hover:text-blue-600"
+                        style={{ color: '#004D40' }}
+                      >
+                        contato@institutofita.com.br
+                      </a>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="font-semibold mb-1" style={{ color: '#0B3445' }}>Email</h4>
-                    <a 
-                      href="mailto:contato@institutofita.com.br"
-                      className="text-lg hover:underline transition-all duration-300 ease-in-out hover:text-blue-600"
-                      style={{ color: '#004D40' }}
-                    >
-                      contato@institutofita.com.br
-                    </a>
+                  
+                  <div className="flex items-start space-x-4">
+                    <div className="p-3 rounded-lg" style={{ backgroundColor: '#007BFF' }}>
+                      <Linkedin className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-1" style={{ color: '#0B3445' }}>LinkedIn</h4>
+                      <a 
+                        href="https://linkedin.com/company/instituto-fita"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-lg hover:underline transition-all duration-300 ease-in-out hover:text-blue-600"
+                        style={{ color: '#004D40' }}
+                      >
+                        Instituto FITA
+                      </a>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start space-x-4">
+                    <div className="p-3 rounded-lg" style={{ backgroundColor: '#007BFF' }}>
+                      <Building className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-1" style={{ color: '#0B3445' }}>CNPJ</h4>
+                      <p className="text-lg" style={{ color: '#004D40' }}>
+                        12.345.678/0001-90
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start space-x-4">
+                    <div className="p-3 rounded-lg" style={{ backgroundColor: '#007BFF' }}>
+                      <Phone className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-1" style={{ color: '#0B3445' }}>Telefone</h4>
+                      <p className="text-lg" style={{ color: '#004D40' }}>
+                        (11) 9999-8888
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start space-x-4">
+                    <div className="p-3 rounded-lg" style={{ backgroundColor: '#007BFF' }}>
+                      <MapPin className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-1" style={{ color: '#0B3445' }}>Endereço</h4>
+                      <p className="text-lg" style={{ color: '#004D40' }}>
+                        São Paulo, SP - Brasil
+                      </p>
+                    </div>
                   </div>
                 </div>
-                
-                <div className="flex items-start space-x-4">
-                  <div className="p-3 rounded-lg" style={{ backgroundColor: '#007BFF' }}>
-                    <Linkedin className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold mb-1" style={{ color: '#0B3445' }}>LinkedIn</h4>
-                    <a 
+              </div>
+              
+              {/* Contact Actions - Right Side */}
+              <div className="flex flex-col justify-center">
+                <div className="bg-white p-8 rounded-2xl shadow-lg border-2 border-gray-100">
+                  <h3 className="text-2xl font-bold mb-6 text-center" style={{ color: '#0B3445' }}>
+                    Fale Conosco
+                  </h3>
+                  <p className="text-center mb-8" style={{ color: '#004D40' }}>
+                    Escolha a melhor forma de entrar em contato conosco. Estamos prontos para atender você!
+                  </p>
+                  
+                  <div className="space-y-4">
+                    <a
+                      href="https://wa.me/551199998888"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center w-full px-6 py-4 text-lg font-semibold text-white rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl hover:brightness-110"
+                      style={{ backgroundColor: '#25D366' }}
+                    >
+                      <MessageCircle className="w-6 h-6 mr-3" />
+                      WhatsApp
+                    </a>
+                    
+                    <a
                       href="https://linkedin.com/company/instituto-fita"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-lg hover:underline transition-all duration-300 ease-in-out hover:text-blue-600"
-                      style={{ color: '#004D40' }}
+                      className="flex items-center justify-center w-full px-6 py-4 text-lg font-semibold text-white rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl hover:brightness-110"
+                      style={{ backgroundColor: '#0077B5' }}
                     >
-                      Instituto FITA
+                      <Linkedin className="w-6 h-6 mr-3" />
+                      LinkedIn
                     </a>
                   </div>
-                </div>
-                
-                <div className="flex items-start space-x-4">
-                  <div className="p-3 rounded-lg" style={{ backgroundColor: '#007BFF' }}>
-                    <Building className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold mb-1" style={{ color: '#0B3445' }}>CNPJ</h4>
-                    <p className="text-lg" style={{ color: '#004D40' }}>
-                      12.345.678/0001-90
-                    </p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start space-x-4">
-                  <div className="p-3 rounded-lg" style={{ backgroundColor: '#007BFF' }}>
-                    <Phone className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold mb-1" style={{ color: '#0B3445' }}>Telefone</h4>
-                    <p className="text-lg" style={{ color: '#004D40' }}>
-                      (11) 9999-8888
-                    </p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start space-x-4">
-                  <div className="p-3 rounded-lg" style={{ backgroundColor: '#007BFF' }}>
-                    <MapPin className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold mb-1" style={{ color: '#0B3445' }}>Endereço</h4>
-                    <p className="text-lg" style={{ color: '#004D40' }}>
-                      São Paulo, SP - Brasil
+                  
+                  <div className="mt-6 pt-6 border-t border-gray-200">
+                    <p className="text-sm text-center" style={{ color: '#004D40' }}>
+                      Resposta rápida garantida em até 24 horas
                     </p>
                   </div>
                 </div>
               </div>
-            </div>
-            
-            {/* Contact Buttons */}
-            <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <a
-                href="https://wa.me/551199998888"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center px-8 py-4 text-lg font-semibold text-white rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl hover:brightness-110"
-                style={{ backgroundColor: '#25D366' }}
-              >
-                <MessageCircle className="w-6 h-6 mr-3" />
-                Fale Conosco no WhatsApp
-              </a>
-              <a
-                href="https://linkedin.com/company/instituto-fita"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center px-8 py-4 text-lg font-semibold text-white rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl hover:brightness-110"
-                style={{ backgroundColor: '#0077B5' }}
-              >
-                <Linkedin className="w-6 h-6 mr-3" />
-                Visite Nosso LinkedIn
-              </a>
             </div>
           </div>
         </div>
