@@ -377,7 +377,7 @@ function App() {
                     <div>
                       <h4 className="font-semibold mb-1" style={{ color: '#0B3445' }}>Telefone</h4>
                       <p className="text-lg" style={{ color: '#004D40' }}>
-                        (11) 9999-8888
+                        (92)0000-8888
                       </p>
                     </div>
                   </div>
@@ -389,7 +389,7 @@ function App() {
                     <div>
                       <h4 className="font-semibold mb-1" style={{ color: '#0B3445' }}>Endereço</h4>
                       <p className="text-lg" style={{ color: '#004D40' }}>
-                        São Paulo, SP - Brasil
+                        Manaus, AM - Brasil
                       </p>
                     </div>
                   </div>
