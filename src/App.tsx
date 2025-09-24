@@ -54,8 +54,8 @@ function App() {
   const headerOpacity = Math.min(scrollY / 100, 0.95);
   const headerBg = scrollY > 50 
     ? `rgba(11, 52, 69, ${headerOpacity})` 
-    : 'rgba(255, 255, 255, 0.95)';
-  const textColor = scrollY > 50 ? 'text-white' : 'text-gray-900';
+    : 'rgba(0, 123, 255, 0.9)';
+  const textColor = 'text-white';
 
   return (
     <div className="min-h-screen bg-white">
@@ -71,7 +71,7 @@ function App() {
               <img 
                 src="/fita.jpeg" 
                 alt="Instituto FITA" 
-                className="h-10 w-auto object-contain"
+                className="h-12 sm:h-14 w-auto object-contain"
               />
             </div>
 
@@ -122,18 +122,18 @@ function App() {
         id="inicio" 
         className="min-h-screen flex items-center justify-center relative bg-cover bg-center bg-fixed"
         style={{ 
-          backgroundImage: 'linear-gradient(rgba(11, 52, 69, 0.8), rgba(11, 52, 69, 0.8)), url(https://img.freepik.com/fotos-premium/forma-de-conexao-de-tecnologia_250994-826.jpg)'
+          backgroundImage: 'linear-gradient(rgba(11, 52, 69, 0.7), rgba(0, 77, 64, 0.7)), url(/hero-background%20(1).png)'
         }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="max-w-4xl mx-auto">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
               Transformando o Futuro com
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-400">
                 Tecnologia e Inovação
               </span>
             </h1>
-            <p className="text-xl sm:text-2xl text-gray-200 mb-8 leading-relaxed">
+            <p className="text-xl sm:text-2xl mb-8 leading-relaxed text-cyan-100">
               O Instituto FITA oferece soluções tecnológicas avançadas para impulsionar 
               seu negócio no mundo digital
             </p>
@@ -160,17 +160,17 @@ function App() {
       <section id="quem-somos" className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-12 text-center" style={{ color: '#0B3445' }}>
+            <h2 className="text-4xl lg:text-5xl font-bold mb-12 text-center" style={{ color: '#004D40' }}>
               Quem Somos
             </h2>
             
             <div className="space-y-12">
               {/* Sobre o Instituto FITA */}
               <div className="bg-white p-8 rounded-2xl shadow-lg">
-                <h3 className="text-2xl font-bold mb-4" style={{ color: '#0B3445' }}>
+                <h3 className="text-2xl font-bold mb-4" style={{ color: '#004D40' }}>
                   Sobre o Instituto FITA
                 </h3>
-                <p className="text-lg leading-relaxed" style={{ color: '#004D40' }}>
+                <p className="text-lg leading-relaxed text-gray-700">
                   O Instituto FITA é um centro de excelência em pesquisa e desenvolvimento de tecnologias para telecomunicações. 
                   Nascido da experiência consolidada da FIOS, empresa pioneira no setor, o FITA foi criado para focar exclusivamente 
                   na vanguarda da inovação. Nossa paixão é criar soluções que rompem barreiras e impulsionam a conectividade global.
@@ -180,20 +180,20 @@ function App() {
               {/* Missão e Visão */}
               <div className="grid md:grid-cols-2 gap-8">
                 <div className="bg-white p-8 rounded-2xl shadow-lg">
-                  <h3 className="text-2xl font-bold mb-4" style={{ color: '#0B3445' }}>
+                  <h3 className="text-2xl font-bold mb-4" style={{ color: '#004D40' }}>
                     Nossa Missão
                   </h3>
-                  <p className="text-lg leading-relaxed" style={{ color: '#004D40' }}>
+                  <p className="text-lg leading-relaxed text-gray-700">
                     Projetar e desenvolver produtos de telecomunicações de alta performance, confiabilidade e segurança, 
                     atendendo às demandas de um mundo cada vez mais conectado.
                   </p>
                 </div>
                 
                 <div className="bg-white p-8 rounded-2xl shadow-lg">
-                  <h3 className="text-2xl font-bold mb-4" style={{ color: '#0B3445' }}>
+                  <h3 className="text-2xl font-bold mb-4" style={{ color: '#004D40' }}>
                     Nossa Visão
                   </h3>
-                  <p className="text-lg leading-relaxed" style={{ color: '#004D40' }}>
+                  <p className="text-lg leading-relaxed text-gray-700">
                     Ser referência global em inovação no setor de telecomunicações, liderando a transformação digital 
                     e contribuindo para uma sociedade mais conectada e inteligente.
                   </p>
@@ -208,10 +208,10 @@ function App() {
       <section id="solucoes" className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6" style={{ color: '#0B3445' }}>
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6" style={{ color: '#004D40' }}>
               Nossas Soluções
             </h2>
-            <p className="text-xl max-w-3xl mx-auto" style={{ color: '#004D40' }}>
+            <p className="text-xl max-w-3xl mx-auto text-gray-600">
               Oferecemos uma gama completa de serviços tecnológicos para atender todas as suas necessidades digitais
             </p>
           </div>
@@ -235,10 +235,10 @@ function App() {
                         />
                       </div>
                       <div className="p-8">
-                        <h3 className="text-2xl font-bold mb-4" style={{ color: '#0B3445' }}>
+                        <h3 className="text-2xl font-bold mb-4" style={{ color: '#004D40' }}>
                           {solution.title}
                         </h3>
-                        <p className="text-lg leading-relaxed" style={{ color: '#004D40' }}>
+                        <p className="text-lg leading-relaxed text-gray-700">
                           {solution.description}
                         </p>
                       </div>
@@ -256,10 +256,10 @@ function App() {
                       />
                     </div>
                     <div className="p-8">
-                      <h3 className="text-2xl font-bold mb-4" style={{ color: '#0B3445' }}>
+                      <h3 className="text-2xl font-bold mb-4" style={{ color: '#004D40' }}>
                         {solutions[0].title}
                       </h3>
-                      <p className="text-lg leading-relaxed" style={{ color: '#004D40' }}>
+                      <p className="text-lg leading-relaxed text-gray-700">
                         {solutions[0].description}
                       </p>
                     </div>
@@ -271,15 +271,15 @@ function App() {
             {/* Carousel Controls */}
             <button
               onClick={prevSlide}
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white p-3 rounded-full shadow-lg transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl"
-              style={{ color: '#0B3445' }}
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 p-3 rounded-full shadow-lg transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl text-white"
+              style={{ backgroundColor: 'rgba(0, 123, 255, 0.9)' }}
             >
               <ChevronLeft size={24} />
             </button>
             <button
               onClick={nextSlide}
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white p-3 rounded-full shadow-lg transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl"
-              style={{ color: '#0B3445' }}
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 p-3 rounded-full shadow-lg transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl text-white"
+              style={{ backgroundColor: 'rgba(0, 123, 255, 0.9)' }}
             >
               <ChevronRight size={24} />
             </button>
@@ -307,10 +307,10 @@ function App() {
       <section id="contato" className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6" style={{ color: '#0B3445' }}>
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6" style={{ color: '#004D40' }}>
               Entre em Contato
             </h2>
-            <p className="text-xl max-w-3xl mx-auto" style={{ color: '#004D40' }}>
+            <p className="text-xl max-w-3xl mx-auto text-gray-600">
               Pronto para transformar seu negócio? Entre em contato conosco e descubra como podemos ajudar
             </p>
           </div>
@@ -319,7 +319,7 @@ function App() {
             <div className="grid lg:grid-cols-2 gap-12">
               {/* Contact Info - Left Side */}
               <div>
-                <h3 className="text-2xl font-bold mb-8" style={{ color: '#0B3445' }}>
+                <h3 className="text-2xl font-bold mb-8" style={{ color: '#004D40' }}>
                   Informações de Contato
                 </h3>
                 
@@ -329,11 +329,10 @@ function App() {
                       <Mail className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h4 className="font-semibold mb-1" style={{ color: '#0B3445' }}>Email</h4>
+                      <h4 className="font-semibold mb-1" style={{ color: '#004D40' }}>Email</h4>
                       <a 
                         href="mailto:contato@institutofita.com.br"
-                        className="text-lg hover:underline transition-all duration-300 ease-in-out hover:text-blue-600"
-                        style={{ color: '#004D40' }}
+                        className="text-lg hover:underline transition-all duration-300 ease-in-out hover:text-blue-600 text-gray-700"
                       >
                         contato@institutofita.com.br
                       </a>
@@ -345,13 +344,12 @@ function App() {
                       <Linkedin className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h4 className="font-semibold mb-1" style={{ color: '#0B3445' }}>LinkedIn</h4>
+                      <h4 className="font-semibold mb-1" style={{ color: '#004D40' }}>LinkedIn</h4>
                       <a 
                         href="https://linkedin.com/company/instituto-fita"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-lg hover:underline transition-all duration-300 ease-in-out hover:text-blue-600"
-                        style={{ color: '#004D40' }}
+                        className="text-lg hover:underline transition-all duration-300 ease-in-out hover:text-blue-600 text-gray-700"
                       >
                         Instituto FITA
                       </a>
@@ -363,8 +361,8 @@ function App() {
                       <Building className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h4 className="font-semibold mb-1" style={{ color: '#0B3445' }}>CNPJ</h4>
-                      <p className="text-lg" style={{ color: '#004D40' }}>
+                      <h4 className="font-semibold mb-1" style={{ color: '#004D40' }}>CNPJ</h4>
+                      <p className="text-lg text-gray-700">
                         12.345.678/0001-90
                       </p>
                     </div>
@@ -375,8 +373,8 @@ function App() {
                       <Phone className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h4 className="font-semibold mb-1" style={{ color: '#0B3445' }}>Telefone</h4>
-                      <p className="text-lg" style={{ color: '#004D40' }}>
+                      <h4 className="font-semibold mb-1" style={{ color: '#004D40' }}>Telefone</h4>
+                      <p className="text-lg text-gray-700">
                         (92)0000-8888
                       </p>
                     </div>
@@ -387,8 +385,8 @@ function App() {
                       <MapPin className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h4 className="font-semibold mb-1" style={{ color: '#0B3445' }}>Endereço</h4>
-                      <p className="text-lg" style={{ color: '#004D40' }}>
+                      <h4 className="font-semibold mb-1" style={{ color: '#004D40' }}>Endereço</h4>
+                      <p className="text-lg text-gray-700">
                         Manaus, AM - Brasil
                       </p>
                     </div>
@@ -398,11 +396,11 @@ function App() {
               
               {/* Contact Actions - Right Side */}
               <div className="flex flex-col justify-center">
-                <div className="bg-white p-8 rounded-2xl shadow-lg border-2 border-gray-100">
-                  <h3 className="text-2xl font-bold mb-6 text-center" style={{ color: '#0B3445' }}>
+                <div className="bg-white p-8 rounded-2xl shadow-lg border-2 border-blue-100">
+                  <h3 className="text-2xl font-bold mb-6 text-center" style={{ color: '#004D40' }}>
                     Fale Conosco
                   </h3>
-                  <p className="text-center mb-8" style={{ color: '#004D40' }}>
+                  <p className="text-center mb-8 text-gray-600">
                     Escolha a melhor forma de entrar em contato conosco. Estamos prontos para atender você!
                   </p>
                   
@@ -431,7 +429,7 @@ function App() {
                   </div>
                   
                   <div className="mt-6 pt-6 border-t border-gray-200">
-                    <p className="text-sm text-center" style={{ color: '#004D40' }}>
+                    <p className="text-sm text-center text-gray-600">
                       Resposta rápida garantida em até 24 horas
                     </p>
                   </div>
