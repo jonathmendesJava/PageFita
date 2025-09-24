@@ -52,10 +52,10 @@ function App() {
   };
 
   const headerOpacity = Math.min(scrollY / 100, 0.95);
-  // navbar color changed to #28F3A4 (using rgba for dynamic opacity)
+  // navbar color set to #0B3445 (using rgba for dynamic opacity)
   const headerBg = scrollY > 50
-    ? `rgba(40, 243, 164, ${headerOpacity})`
-    : 'rgba(40, 243, 164, 0.95)';
+    ? `rgba(11, 52, 69, ${headerOpacity})`
+    : 'rgba(11, 52, 69, 0.95)';
   const textColor = 'text-white';
 
   return (
@@ -123,15 +123,16 @@ function App() {
         id="inicio" 
         className="min-h-screen flex items-center justify-center relative bg-cover bg-center bg-fixed"
         style={{ 
-          // use the original hero image from public without gradient overlay
-          backgroundImage: "url('/hero-background%20(1).png')"
+          // slightly lighten the background image so text reads better
+          backgroundImage: "linear-gradient(rgba(255,255,255,0.22), rgba(255,255,255,0.22)), url('/hero-background%20(1).png')",
+          backgroundBlendMode: 'overlay'
         }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="max-w-4xl mx-auto">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
               Transformando o Futuro com
-              <span className="block" style={{ color: '#28F3A4' }}>
+              <span className="block" style={{ color: '#14289b' }}>
                 Tecnologia e Inovação
               </span>
             </h1>
