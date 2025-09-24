@@ -53,8 +53,8 @@ function App() {
 
   const headerOpacity = Math.min(scrollY / 100, 0.95);
   const headerBg = scrollY > 50 
-    ? `rgba(11, 52, 69, ${headerOpacity})` 
-    : 'rgba(0, 123, 255, 0.9)';
+    ? `rgba(0, 33, 61, ${headerOpacity})` 
+    : 'rgba(0, 33, 61, 0.9)';
   const textColor = 'text-white';
 
   return (
@@ -122,7 +122,7 @@ function App() {
         id="inicio" 
         className="min-h-screen flex items-center justify-center relative bg-cover bg-center bg-fixed"
         style={{ 
-          backgroundImage: 'linear-gradient(rgba(11, 52, 69, 0.7), rgba(0, 77, 64, 0.7)), url(/hero-background%20(1).png)'
+          backgroundImage: 'linear-gradient(rgba(11, 52, 69, 0.7), rgba(0, 77, 64, 0.7)), url(https://i.ibb.co/Z1K5YkZs/hero-background-1.webp)'
         }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
