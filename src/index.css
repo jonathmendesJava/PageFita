@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Project custom utilities */
+.fita-text { color: #0B3545 !important; }
+.fita-accent { color: #AFF021 !important; }
+.fita-bg-accent { background-color: #AFF021 !important; }

@@ -193,7 +193,7 @@ export default function App() {
                 transition: 'transform 700ms cubic-bezier(0.2,0.8,0.2,1) 220ms, opacity 700ms ease 220ms',
               }}
             >
-              <button onClick={() => scrollToSection('solucoes')} className="px-8 py-4 text-lg font-semibold text-white rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl" style={{ backgroundColor: '#28F3A4' }}>
+              <button onClick={() => scrollToSection('solucoes')} className="px-8 py-4 text-lg font-semibold text-white rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl fita-bg-accent" style={{ backgroundColor: '#AFF021' }}>
                 Conheça Nossas Soluções
               </button>
               <button onClick={() => scrollToSection('contato')} className="px-8 py-4 text-lg font-semibold border-2 border-white text-white rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:bg-white hover:text-gray-900">
@@ -205,29 +205,29 @@ export default function App() {
       </section>
 
       {/* Quem Somos */}
-      <section id="quem-somos" className="py-20 bg-gray-50">
+  <section id="quem-somos" className="py-20 bg-gray-50 fita-text">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto" ref={quemRef}>
             <h2
-              className="text-4xl lg:text-5xl font-bold mb-12 text-center"
-              style={{ color: '#004D40', transform: `translateY(${Math.max(-quemOffset, -80)}px)`, transition: 'transform 450ms ease' }}
+              className="text-4xl lg:text-5xl font-bold mb-12 text-center fita-text"
+              style={{ transform: `translateY(${Math.max(-quemOffset, -80)}px)`, transition: 'transform 450ms ease' }}
             >
               Quem Somos
             </h2>
 
             <div className="space-y-12">
               <div className="bg-white p-8 rounded-2xl shadow-lg" style={{ transform: `translateY(${Math.max(-quemOffset * 0.5, -40)}px)`, transition: 'transform 450ms ease' }}>
-                <h3 className="text-2xl font-bold mb-4" style={{ color: '#004D40' }}>
+                <h3 className="text-2xl font-bold mb-4 fita-text">
                   Sobre o Instituto FITA
                 </h3>
-                <p className="text-lg leading-relaxed text-gray-700">
+                <p className="text-lg leading-relaxed fita-text">
                   O Instituto FITA é um centro de excelência em pesquisa e desenvolvimento de tecnologias para telecomunicações. Nascido da experiência consolidada da FIOS, empresa pioneira no setor, o FITA foi criado para focar exclusivamente na vanguarda da inovação. Nossa paixão é criar soluções que rompem barreiras e impulsionam a conectividade global.
                 </p>
               </div>
 
               <div className="grid md:grid-cols-2 gap-8">
                 <div className="bg-white p-8 rounded-2xl shadow-lg" style={{ transform: `translateY(${Math.max(-quemOffset * 0.55, -44)}px)`, transition: 'transform 450ms ease' }}>
-                  <h3 className="text-2xl font-bold mb-4" style={{ color: '#004D40' }}>
+                  <h3 className="text-2xl font-bold mb-4 fita-text">
                     Nossa Missão
                   </h3>
                   <p className="text-lg leading-relaxed text-gray-700">
@@ -236,7 +236,7 @@ export default function App() {
                 </div>
 
                 <div className="bg-white p-8 rounded-2xl shadow-lg" style={{ transform: `translateY(${Math.max(-quemOffset * 0.55, -44)}px)`, transition: 'transform 450ms ease' }}>
-                  <h3 className="text-2xl font-bold mb-4" style={{ color: '#004D40' }}>
+                  <h3 className="text-2xl font-bold mb-4 fita-text">
                     Nossa Visão
                   </h3>
                   <p className="text-lg leading-relaxed text-gray-700">
@@ -250,13 +250,13 @@ export default function App() {
       </section>
 
       {/* Soluções - 3 cards */}
-      <section id="solucoes" className="py-20">
+  <section id="solucoes" className="py-20 fita-text">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6" style={{ color: '#004D40' }}>
+            <div className="text-center mb-16 fita-text">
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6 fita-text">
               Nossas Soluções
             </h2>
-            <p className="text-xl max-w-3xl mx-auto text-gray-600">Oferecemos uma gama completa de serviços tecnológicos para atender todas as suas necessidades digitais</p>
+            <p className="text-xl max-w-3xl mx-auto fita-text">Oferecemos uma gama completa de serviços tecnológicos para atender todas as suas necessidades digitais</p>
           </div>
 
           <div className="max-w-5xl mx-auto">
@@ -267,9 +267,9 @@ export default function App() {
                     <img src={solution.image} alt={solution.title} className="max-h-full max-w-full object-contain" />
                   </div>
                   <div className="p-6">
-                    <h3 className="text-xl font-bold mb-2" style={{ color: '#004D40' }}>{solution.title}</h3>
-                    <p className="text-gray-700">{solution.description}</p>
-                  </div>
+                      <h3 className="text-xl font-bold mb-2 fita-text">{solution.title}</h3>
+                      <p className="fita-text">{solution.description}</p>
+                    </div>
                 </div>
               ))}
             </div>
@@ -278,70 +278,70 @@ export default function App() {
       </section>
 
       {/* Contato */}
-      <section id="contato" className="py-20 bg-gray-50">
+  <section id="contato" className="py-20 bg-gray-50 fita-text">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6" style={{ color: '#004D40' }}>
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6 fita-text">
               Entre em Contato
             </h2>
-            <p className="text-xl max-w-3xl mx-auto text-gray-600">Pronto para transformar seu negócio? Entre em contato conosco e descubra como podemos ajudar</p>
+            <p className="text-xl max-w-3xl mx-auto fita-text">Pronto para transformar seu negócio? Entre em contato conosco e descubra como podemos ajudar</p>
           </div>
 
           <div className="max-w-6xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-12">
               <div>
-                <h3 className="text-2xl font-bold mb-8" style={{ color: '#004D40' }}>
+                <h3 className="text-2xl font-bold mb-8 fita-text">
                   Informações de Contato
                 </h3>
 
-                <div className="space-y-6">
+                  <div className="space-y-6">
                   <div className="flex items-start space-x-4">
-                    <div className="p-3 rounded-lg" style={{ backgroundColor: '#28F3A4' }}>
+                    <div className="p-3 rounded-lg" style={{ backgroundColor: '#AFF021' }}>
                       <Mail className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h4 className="font-semibold mb-1" style={{ color: '#004D40' }}>Email</h4>
+                      <h4 className="font-semibold mb-1 fita-text">Email</h4>
                       <a href="mailto:contato@institutofita.com.br" className="text-lg hover:underline transition-all duration-300 ease-in-out hover:text-blue-600 text-gray-700">contato@institutofita.com.br</a>
                     </div>
                   </div>
 
                   <div className="flex items-start space-x-4">
-                    <div className="p-3 rounded-lg" style={{ backgroundColor: '#28F3A4' }}>
+                    <div className="p-3 rounded-lg" style={{ backgroundColor: '#AFF021' }}>
                       <Linkedin className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h4 className="font-semibold mb-1" style={{ color: '#004D40' }}>LinkedIn</h4>
+                      <h4 className="font-semibold mb-1 fita-text">LinkedIn</h4>
                       <a href="https://linkedin.com/company/instituto-fita" target="_blank" rel="noopener noreferrer" className="text-lg hover:underline transition-all duration-300 ease-in-out hover:text-blue-600 text-gray-700">Instituto FITA</a>
                     </div>
                   </div>
 
                   <div className="flex items-start space-x-4">
-                    <div className="p-3 rounded-lg" style={{ backgroundColor: '#28F3A4' }}>
+                    <div className="p-3 rounded-lg" style={{ backgroundColor: '#AFF021' }}>
                       <Building className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h4 className="font-semibold mb-1" style={{ color: '#004D40' }}>CNPJ</h4>
-                      <p className="text-lg text-gray-700">12.345.678/0001-90</p>
+                      <h4 className="font-semibold mb-1 fita-text">CNPJ</h4>
+                      <p className="text-lg fita-text">12.345.678/0001-90</p>
                     </div>
                   </div>
 
                   <div className="flex items-start space-x-4">
-                    <div className="p-3 rounded-lg" style={{ backgroundColor: '#28F3A4' }}>
+                    <div className="p-3 rounded-lg" style={{ backgroundColor: '#AFF021' }}>
                       <Phone className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h4 className="font-semibold mb-1" style={{ color: '#004D40' }}>Telefone</h4>
-                      <p className="text-lg text-gray-700">(92)0000-8888</p>
+                      <h4 className="font-semibold mb-1 fita-text">Telefone</h4>
+                      <p className="text-lg fita-text">(92)0000-8888</p>
                     </div>
                   </div>
 
                   <div className="flex items-start space-x-4">
-                    <div className="p-3 rounded-lg" style={{ backgroundColor: '#28F3A4' }}>
+                    <div className="p-3 rounded-lg" style={{ backgroundColor: '#AFF021' }}>
                       <MapPin className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h4 className="font-semibold mb-1" style={{ color: '#004D40' }}>Endereço</h4>
-                      <p className="text-lg text-gray-700">Manaus, AM - Brasil</p>
+                      <h4 className="font-semibold mb-1 fita-text">Endereço</h4>
+                      <p className="text-lg fita-text">Manaus, AM - Brasil</p>
                     </div>
                   </div>
                 </div>
@@ -353,8 +353,8 @@ export default function App() {
                   <p className="text-center mb-8 text-gray-600">Escolha a melhor forma de entrar em contato conosco. Estamos prontos para atender você!</p>
 
                   <div className="space-y-4">
-                    <a href="https://wa.me/551199998888" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-full px-6 py-4 text-lg font-semibold text-white rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl" style={{ backgroundColor: '#25D366' }}>
-                      <MessageCircle className="w-6 h-6 mr-3" />
+                    <a href="https://wa.me/551199998888" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-full px-6 py-4 text-lg font-semibold text-white rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl" style={{ backgroundColor: '#AFF021' }}>
+                      <MessageCircle className="w-6 h-6 mr-3 text-white" />
                       WhatsApp
                     </a>
 
@@ -375,7 +375,7 @@ export default function App() {
       </section>
 
       <footer className="py-8" style={{ backgroundColor: '#0B3445' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 fita-text">
           <div className="text-center">
             <p className="text-gray-300">© 2024 Instituto FITA. Todos os direitos reservados.</p>
           </div>
