@@ -52,10 +52,10 @@ function App() {
   };
 
   const headerOpacity = Math.min(scrollY / 100, 0.95);
-  // navbar color set to #0B3445 (using rgba for dynamic opacity)
+  // navbar color set to #000002 (using rgba for dynamic opacity)
   const headerBg = scrollY > 50
-    ? `rgba(11, 52, 69, ${headerOpacity})`
-    : 'rgba(11, 52, 69, 0.95)';
+    ? `rgba(0, 0, 2, ${headerOpacity})`
+    : 'rgba(0, 0, 2, 0.95)';
   const textColor = 'text-white';
 
   return (
@@ -134,11 +134,11 @@ function App() {
           <div className="max-w-4xl mx-auto">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
               Transformando o Futuro com
-              <span className="block" style={{ color: '#14289b' }}>
+              <span className="block" style={{ color: '#09384B' }}>
                 Tecnologia e Inovação
               </span>
             </h1>
-            <p className="text-xl sm:text-2xl mb-8 leading-relaxed text-cyan-100">
+            <p className="text-xl sm:text-2xl mb-8 leading-relaxed" style={{ color: '#09384B' }}>
               O Instituto FITA oferece soluções tecnológicas avançadas para impulsionar 
               seu negócio no mundo digital
             </p>
