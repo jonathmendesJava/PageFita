@@ -119,16 +119,18 @@ function App() {
       </header>
 
       {/* Hero Section */}
-      <section 
-        id="inicio" 
-        className="min-h-screen flex items-center justify-center relative bg-cover bg-center bg-fixed"
-        style={{ 
-          // slightly lighten the background image so text reads better
-          backgroundImage: "linear-gradient(rgba(255,255,255,0.22), rgba(255,255,255,0.22)), url('/hero-background%20(1).png')",
-          backgroundBlendMode: 'overlay'
-        }}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section id="inicio" className="min-h-screen flex items-center justify-center relative">
+        {/* background image placed behind content */}
+        <img
+          src="/hero-background%20(1).png"
+          alt="Hero background"
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+          style={{ filter: 'brightness(0.95)' }}
+        />
+        {/* subtle overlay to keep text readable without changing their colors */}
+        <div className="absolute inset-0 bg-white/22 pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <div className="max-w-4xl mx-auto">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
               Transformando o Futuro com
