@@ -87,6 +87,14 @@ export default function App() {
     setIsMenuOpen(false);
   };
 
+  // normalized nav items: id = section id, label = displayed text
+  const navItems = [
+    { id: 'inicio', label: 'Início' },
+    { id: 'quem-somos', label: 'Quem Somos' },
+    { id: 'solucoes', label: 'Soluções' }, // id matches section id="solucoes"
+    { id: 'contato', label: 'Contato' },
+  ];
+
   return (
     <div className="min-h-screen bg-white">
       <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm shadow-sm transition-all duration-300" style={{ backgroundColor: headerBg }}>
@@ -101,14 +109,14 @@ export default function App() {
             </div>
 
             <nav className="hidden md:flex space-x-8">
-              {['inicio', 'quem-somos', 'solucoes', 'contato'].map((s) => (
+              {navItems.map((item) => (
                 <button
-                  key={s}
-                  onClick={() => scrollToSection(s)}
-                  className={`capitalize font-medium transition-all duration-300 ease-in-out hover:scale-105 relative group`}
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className={`font-medium transition-all duration-300 ease-in-out hover:scale-105 relative group`}
                   style={{ color: isScrolled ? '#03112A' : '#FFFFFF' }}
                 >
-                  {s.replace('-', ' ')}
+                  {item.label}
                   <span
                     className="absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full"
                     style={{ backgroundColor: isScrolled ? '#03112A' : '#FFFFFF' }}
@@ -125,14 +133,14 @@ export default function App() {
           {isMenuOpen && (
             <div className="md:hidden py-4 border-t border-gray-200/20">
               <nav className="flex flex-col space-y-3">
-                {['inicio', 'quem-somos', 'solucoes', 'contato'].map((s) => (
+                {navItems.map((item) => (
                   <button
-                    key={s}
-                    onClick={() => scrollToSection(s)}
-                    className="text-left capitalize font-medium py-2 transition-all duration-300 ease-in-out hover:scale-105"
+                    key={item.id}
+                    onClick={() => scrollToSection(item.id)}
+                    className="text-left font-medium py-2 transition-all duration-300 ease-in-out hover:scale-105"
                     style={{ color: isScrolled ? '#03112A' : '#FFFFFF' }}
                   >
-                    {s.replace('-', ' ')}
+                    {item.label}
                   </button>
                 ))}
               </nav>
@@ -301,7 +309,7 @@ export default function App() {
                     </div>
                     <div>
                       <h4 className="font-semibold mb-1 fita-text">Email</h4>
-                      <a href="mailto:contato@institutofita.com.br" className="text-lg hover:underline transition-all duration-300 ease-in-out hover:text-blue-600 text-gray-700">contato@institutofita.com.br</a>
+                      <a href="mailto:contato@fita.org.br" className="text-lg hover:underline transition-all duration-300 ease-in-out hover:text-blue-600 text-gray-700">contato@fita.org.br</a>
                     </div>
                   </div>
 
@@ -321,7 +329,7 @@ export default function App() {
                     </div>
                     <div>
                       <h4 className="font-semibold mb-1 fita-text">CNPJ</h4>
-                      <p className="text-lg fita-text">12.345.678/0001-90</p>
+                      <p className="text-lg fita-text">48.985.034/0001-09</p>
                     </div>
                   </div>
 
@@ -331,7 +339,7 @@ export default function App() {
                     </div>
                     <div>
                       <h4 className="font-semibold mb-1 fita-text">Telefone</h4>
-                      <p className="text-lg fita-text">(92)0000-8888</p>
+                      <p className="text-lg fita-text">(92)2020-1000</p>
                     </div>
                   </div>
 
@@ -353,7 +361,7 @@ export default function App() {
                   <p className="text-center mb-8 text-gray-600">Escolha a melhor forma de entrar em contato conosco. Estamos prontos para atender você!</p>
 
                   <div className="space-y-4">
-                    <a href="https://wa.me/551199998888" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-full px-6 py-4 text-lg font-semibold text-white rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl" style={{ backgroundColor: '#AFF021' }}>
+                    <a href="https://wa.me/559220201000" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-full px-6 py-4 text-lg font-semibold text-white rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl" style={{ backgroundColor: '#AFF021' }}>
                       <MessageCircle className="w-6 h-6 mr-3 text-white" />
                       WhatsApp
                     </a>
@@ -377,7 +385,7 @@ export default function App() {
       <footer className="py-8" style={{ backgroundColor: '#0B3445' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 fita-text">
           <div className="text-center">
-            <p className="text-gray-300">© 2024 Instituto FITA. Todos os direitos reservados.</p>
+            <p className="text-gray-300">© 2025 Instituto FITA. Todos os direitos reservados.</p>
           </div>
         </div>
       </footer>
