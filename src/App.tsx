@@ -339,7 +339,7 @@ export default function App() {
                     </div>
                     <div>
                       <h4 className="font-semibold mb-1 fita-text">Telefone</h4>
-                      <p className="text-lg fita-text">(92)2020-1000</p>
+                      <p className="text-lg fita-text">(92)2020-1001</p>
                     </div>
                   </div>
 
@@ -361,7 +361,7 @@ export default function App() {
                   <p className="text-center mb-8 text-gray-600">Escolha a melhor forma de entrar em contato conosco. Estamos prontos para atender você!</p>
 
                   <div className="space-y-4">
-                    <a href="https://wa.me/559220201000" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-full px-6 py-4 text-lg font-semibold text-white rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl" style={{ backgroundColor: '#AFF021' }}>
+                    <a href="https://wa.me/559220201001" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-full px-6 py-4 text-lg font-semibold text-white rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl" style={{ backgroundColor: '#AFF021' }}>
                       <MessageCircle className="w-6 h-6 mr-3 text-white" />
                       WhatsApp
                     </a>
